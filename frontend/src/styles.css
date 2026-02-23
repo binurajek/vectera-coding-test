@@ -1,1 +1,10 @@
-/* Add minimal styles as needed */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+.app-header {
+    padding: 1rem;
+    border-bottom: 1px solid #4f4d4dff;
+    margin-bottom: 1rem;
+}
