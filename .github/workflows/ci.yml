@@ -10,7 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: TODO - Setup Python and run backend tests
-        run: |
-          echo "Intentionally failing CI to prompt candidates to fix workflow."
-          exit 1
+      - name: Start Database and Backend via Docker
+        run: docker compose up -d --build
+        
+      - name: Wait for PostgreSQL
+        run: sleep 5
+        
+      - name: Run Backend Tests (Pytest)
+        run: docker compose exec -T backend pytest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+        
+      - name: Run Frontend Tests (Karma)
+        working-directory: ./frontend
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
