@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
       <h1>Vectera Coding Test</h1>
       <nav><a routerLink="/meetings">Meetings list</a></nav>
     </header>
-    <main style="padding: 1rem;">
+    <main class="app-main">
       <router-outlet></router-outlet>
     </main>
   `

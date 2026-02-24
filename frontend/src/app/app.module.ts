@@ -5,9 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { MeetingsListComponent } from './components/meetings-list/meetings-list.component';
-import { MeetingDetailComponent } from './components/meeting-detail/meeting-detail.component';
-import { MeetingService } from './services/meeting.service';
 import { routes } from './app.routes';
 
 
@@ -18,11 +15,9 @@ import { routes } from './app.routes';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes),
-    MeetingsListComponent,
-    MeetingDetailComponent
+    RouterModule.forRoot(routes)
   ],
-  providers: [MeetingService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

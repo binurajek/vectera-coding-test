@@ -1,7 +1,7 @@
 export interface Summary {
     id: number;
     content: string;
-    status: string;
+    status: 'pending' | 'ready' | 'failed';
     created_at: string;
     updated_at: string;
 }
@@ -22,9 +22,9 @@ export interface Note {
     created_at: string;
 }
 
-export interface PaginatedResponse {
+export interface PaginatedResponse<T> {
     count: number;
     next: string | null;
     previous: string | null;
-    results: any[];
+    results: T[];
 }

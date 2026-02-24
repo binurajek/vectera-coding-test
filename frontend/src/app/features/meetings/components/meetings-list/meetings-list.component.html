@@ -1,0 +1,26 @@
+<h2>Recent Meetings</h2>
+
+<div *ngIf="loading">
+    <p>Loading meetings...</p>
+</div>
+
+<div *ngIf="!loading" class="meetings-grid">
+    <div *ngFor="let meeting of meetings" class="meeting-card">
+        <h3>
+            <a [routerLink]="['/meetings', meeting.id]" class="meeting-link">{{ meeting.title }}</a>
+        </h3>
+        <p class="meeting-detail"><strong>Started on:</strong> {{ meeting.started_at | date:'medium' }}</p>
+        <p class="meeting-detail"><strong>Notes count:</strong> {{ meeting.note_count }}</p>
+
+        <div class="meeting-status">
+            <span *ngIf="meeting.latest_summary" class="badge badge-{{ meeting.latest_summary.status }}">
+                Summary: {{ meeting.latest_summary.status }}
+            </span>
+            <span *ngIf="!meeting.latest_summary" class="badge">No summary</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!loading && meetings.length === 0">
+    <p>No meetings found.</p>
+</div>

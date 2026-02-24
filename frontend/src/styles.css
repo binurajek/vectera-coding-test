@@ -8,3 +8,7 @@ body {
     border-bottom: 1px solid #4f4d4dff;
     margin-bottom: 1rem;
 }
+
+.app-main {
+    padding: 1rem;
+}

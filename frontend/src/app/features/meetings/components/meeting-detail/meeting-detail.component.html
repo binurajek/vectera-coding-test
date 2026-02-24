@@ -1,0 +1,63 @@
+<div *ngIf="loading">
+    <p>Loading details...</p>
+</div>
+
+<div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+</div>
+
+<div *ngIf="!loading && meeting">
+    <a routerLink="/meetings">
+        <= Back to Meetings</a>
+
+            <h2>{{ meeting.title }}</h2>
+            <p>Started on {{ meeting.started_at | date:'short' }}</p>
+
+            <hr>
+
+            <h3>Notes Feed</h3>
+            <ul>
+                <li *ngFor="let note of notes" class="note-item">
+                    <strong>{{ note.author }}</strong> ({{ note.created_at | date:'shortTime' }}):<br>
+                    {{ note.text }}
+                </li>
+            </ul>
+            <p *ngIf="notes.length === 0">No notes yet for this meeting.</p>
+
+            <div class="add-note-container">
+                <h4>Add a Note</h4>
+                <div class="note-input-group">
+                    <input type="text" placeholder="Author name" [(ngModel)]="newNoteAuthor" />
+                </div>
+                <div class="note-input-group">
+                    <textarea placeholder="Text" [(ngModel)]="newNoteText" rows="3" class="note-textarea"></textarea>
+                </div>
+                <button (click)="addNote()" [disabled]="!newNoteAuthor || !newNoteText || addingNote">
+                    {{ addingNote ? 'Saving...' : 'Submit Note' }}
+                </button>
+            </div>
+
+            <hr>
+
+            <h3>AI Summary Panel</h3>
+            <div class="summary-btn-container">
+                <button (click)="generateSummary()" [disabled]="generatingSummary || summary?.status === 'pending'">
+                    {{ summary?.status === 'pending' ? 'Generating...' : 'Generate Summary' }}
+                </button>
+            </div>
+
+            <div>
+                <strong>Status:</strong>
+                <span *ngIf="summary" class="badge badge-{{ summary.status }}">{{ summary.status }}</span>
+                <span *ngIf="!summary">No summary created yet.</span>
+            </div>
+
+            <div *ngIf="summary?.status === 'ready' || summary?.status === 'failed'" class="summary-box">
+                <p>{{ summary?.content }}</p>
+                <small>Last updated: {{ summary?.updated_at | date:'short' }}</small>
+            </div>
+
+            <div *ngIf="summary?.status === 'pending'" class="polling-status">
+                <i>Polling for summary updates...</i>
+            </div>
+</div>
